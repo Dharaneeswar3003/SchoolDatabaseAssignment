@@ -1,17 +1,26 @@
+import java.util.Random;
 
 public class Student {
     private String firstName;
     private String lastName;
     private int grade;
     private int studentNumber;
-    private static int nextStudentNumber = 1;
 
-    //Student class constructor...
+    // Static Random instance to generate random numbers
+    private static final Random random = new Random();
+
+    // Student class constructor...
     public Student(String firstName, String lastName, int grade) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.grade = grade;
-        this.studentNumber = nextStudentNumber++;
+        this.studentNumber = generateRandomStudentNumber();
+    }
+
+    // Method to generate a random student number
+    private int generateRandomStudentNumber() {
+        // Generate a random number in the range [1000000, 9999999]
+        return 1000000 + random.nextInt(9000000);
     }
 
     // Getters and setters for Student fields
@@ -47,20 +56,17 @@ public class Student {
         return studentNumber;
     }
 
-    public void setStudentNumber(int i){
-        if(!(i >= 10000000) && !(i<1000000)){
-            studentNumber = i;
-        }else{
+    public void setStudentNumber(int studentNumber) {
+        if (studentNumber >= 1000000 && studentNumber <= 9999999) {
+            this.studentNumber = studentNumber;
+        } else {
             System.out.println("Not a valid student ID");
         }
     }
 
-
-    //To-String method...
-
+    // To-String method...
     @Override
     public String toString() {
         return "Name: " + firstName + " " + lastName + "; Grade: " + grade + "; Student Number: " + studentNumber;
     }
 }
-
